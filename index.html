@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+  <button onclick = "GetCity()">Get Weather</button>
+  <p id = "location"></p>
+  <p id = "celsius"></p>
+  <p id = "fahrenheit"></p>
+  
+  <label>Which city?</label>
+  <input type = "text" id = "city">
+
+  <script>
+
+    async function GetCity() {
+      var city = document.getElementById("city").value;
+      var link = `https://api.weatherapi.com/v1/current.json?key=896373c9f2bb491aae0153243240701&q=` + city;
+      var response = await fetch (link);  
+      var data = await response.json();
+
+      var location = data.location.name;
+      var province = data.location.region;
+      var country = data.location.country;
+      var celsius = data.current.temp_c;
+      var fahrenheit = data.current.temp_f;
+      
+      var text1 = document.getElementById("location");
+      var text2 = document.getElementById("celsius");
+      var text3 = document.getElementById("fahrenheit");
+
+      text1.innerHTML = "The location is " + location + ", " + province + ", " + country;
+      text2.innerHTML = "The temperature in Celsius is " + celsius;
+      text3.innerHTML = "The temperature in Fahrenheit is " + fahrenheit;  
+    }
+  </script>
+
+</body>
+
+</html>
